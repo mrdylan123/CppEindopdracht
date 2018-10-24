@@ -84,7 +84,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -148,9 +148,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Domain\Floor.cpp" />
+    <ClCompile Include="Domain\Item\Armor.cpp" />
     <ClCompile Include="CppEindopdracht.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Domain\Hero.cpp" />
+    <ClCompile Include="Domain\Item\Item.cpp" />
+    <ClCompile Include="Domain\Room.cpp" />
+    <ClCompile Include="Domain\Dungeon.cpp" />
+    <ClCompile Include="Domain\Entity.cpp" />
+    <ClCompile Include="Domain\Enemy.cpp" />
+    <ClCompile Include="Domain\Item\Sword.cpp" />
+    <ClCompile Include="Domain\Item\HealthPotion.cpp" />
+    <ClCompile Include="Domain\Item\HolyGrenade.cpp" />
+    <ClCompile Include="Domain\Item\ExperiencePotion.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Domain\Item\Armor.h" />
+    <ClInclude Include="Domain\Hero.h" />
+    <ClInclude Include="Domain\Item\Item.h" />
+    <ClInclude Include="Domain\Floor.h" />
+    <ClInclude Include="Domain\Room.h" />
+    <ClInclude Include="Domain\Dungeon.h" />
+    <ClInclude Include="Domain\Entity.h" />
+    <ClInclude Include="Domain\Enemy.h" />
+    <ClInclude Include="Domain\Item\Sword.h" />
+    <ClInclude Include="Domain\Item\HealthPotion.h" />
+    <ClInclude Include="Domain\Item\HolyGrenade.h" />
+    <ClInclude Include="Domain\Item\ExperiencePotion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

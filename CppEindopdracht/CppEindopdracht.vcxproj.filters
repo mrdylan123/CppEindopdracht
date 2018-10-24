@@ -2,5 +2,83 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="CppEindopdracht.cpp" />
+    <ClCompile Include="Domain\Hero.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Room.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Dungeon.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Entity.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Enemy.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Floor.cpp">
+      <Filter>Domain</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Item\Item.cpp">
+      <Filter>Domain\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Item\Armor.cpp">
+      <Filter>Domain\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Item\HealthPotion.cpp">
+      <Filter>Domain\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Item\HolyGrenade.cpp">
+      <Filter>Domain\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Item\Sword.cpp">
+      <Filter>Domain\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Domain\Item\ExperiencePotion.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Domain">
+      <UniqueIdentifier>{804b99aa-58e8-443f-8a22-c2af09cb1d05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Domain\Item">
+      <UniqueIdentifier>{97a52858-d497-4cfa-be9f-5517aa5b389c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Domain\Hero.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Room.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Floor.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Dungeon.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Enemy.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Entity.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Item\Item.h">
+      <Filter>Domain\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Item\Armor.h">
+      <Filter>Domain\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Item\HealthPotion.h">
+      <Filter>Domain\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Item\HolyGrenade.h">
+      <Filter>Domain\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Item\Sword.h">
+      <Filter>Domain\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Domain\Item\ExperiencePotion.h" />
   </ItemGroup>
 </Project>
