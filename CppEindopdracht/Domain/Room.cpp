@@ -1,20 +1,153 @@
 #include "Room.h"
 #include <random>
 #include <ctime>
-#include "Item/Item.h"
 #include "Enemy.h"
 #include "Item/Armor.h"
 #include "Item/Sword.h"
 #include "Item/HealthPotion.h"
 #include "Item/ExperiencePotion.h"
 #include "Item/HolyGrenade.h"
+#include <iostream>
 
 
 Room::Room()
 {
 }
 
-Room::Room(std::default_random_engine& generator, const int floorLevel) : isVisited_{ false }
+Room::Room(std::default_random_engine& generator, const int floorLevel, const bool containsStairCaseUp, const bool containsStairCaseDown) :
+	isVisited_{ false },
+	containsStairCaseUp_{ containsStairCaseUp },
+	containsStairCaseDown_{ containsStairCaseDown }
+{
+	setRandomDescription(generator);
+	setRandomItem(generator);
+
+	const std::uniform_int_distribution<int> distribution(1, 3);
+
+	// Generate a possible enemy, 1/3 chance
+	if (distribution(generator) == 1)
+	{
+		enemy_ = new Enemy{ generator, floorLevel };
+	}
+	else
+	{
+		enemy_ = nullptr;
+	}
+}
+
+
+Room::~Room()
+{
+	delete item_;
+	delete enemy_;
+}
+
+char* Room::description()
+{
+	return description_;
+}
+
+bool Room::containsStairCaseUp() const
+{
+	return containsStairCaseUp_;
+}
+
+bool Room::containsStairCaseDown() const
+{
+	return containsStairCaseDown_;
+}
+
+Room* Room::northRoom() const
+{
+	return northRoom_;
+}
+
+Room* Room::eastRoom() const
+{
+	return eastRoom_;
+}
+
+Room* Room::southRoom() const
+{
+	return southRoom_;
+}
+
+Room* Room::westRoom() const
+{
+	return westRoom_;
+}
+
+void Room::setNorthRoom(Room* room)
+{
+	northRoom_ = room;
+}
+
+void Room::setEastRoom(Room* room)
+{
+	eastRoom_ = room;
+}
+
+void Room::setSouthRoom(Room* room)
+{
+	southRoom_ = room;
+}
+
+void Room::setWestRoom(Room* room)
+{
+	westRoom_ = room;
+}
+
+void Room::setEnd()
+{
+	isEnd_ = true;
+}
+
+void Room::setStart()
+{
+	isStart_ = true;
+}
+
+void Room::setVisited()
+{
+	isVisited_ = true;
+}
+
+void Room::print() const
+{
+	if (isStart_)
+	{
+		std::cout << "S";
+		return;
+	}
+
+	if (!isVisited_)
+	{
+		std::cout << ".";
+		return;
+	}
+
+	if (isEnd_)
+	{
+		std::cout << "E";
+		return;
+	}
+
+	if (containsStairCaseUp_)
+	{
+		std::cout << "H";
+		return;
+	}
+
+	if (containsStairCaseDown_)
+	{
+		std::cout << "L";
+		return;
+	}
+
+	std::cout << "N";
+}
+
+void Room::setRandomDescription(std::default_random_engine& generator)
 {
 	const std::uniform_int_distribution<int> distribution(1, 3);
 
@@ -42,74 +175,31 @@ Room::Room(std::default_random_engine& generator, const int floorLevel) : isVisi
 	strcat_s(description, ".");
 
 	strncpy_s(description_, description, 100);
+}
 
+void Room::setRandomItem(std::default_random_engine& generator)
+{
 	// Generate a possible item, 1/3 chance
-	item_ = getRandomItem(generator);
-
-	// Generate a possible enemy, 1/3 chance
-	if (distribution(generator) == 1)
-	{
-		enemy_ = new Enemy{ generator, floorLevel };
-	}
-	else
-	{
-		enemy_ = nullptr;
-	}
-}
-
-
-Room::~Room()
-{
-	delete item_;
-	delete enemy_;
-}
-
-char* Room::description()
-{
-	return description_;
-}
-
-void Room::setNorthRoom(Room* room)
-{
-	northRoom_ = room;
-}
-
-void Room::setEastRoom(Room* room)
-{
-	eastRoom_ = room;
-}
-
-void Room::setSouthRoom(Room* room)
-{
-	southRoom_ = room;
-}
-
-void Room::setWestRoom(Room* room)
-{
-	westRoom_ = room;
-}
-
-Item* Room::getRandomItem(std::default_random_engine& generator)
-{
 	const std::uniform_int_distribution<int> itemChance(1, 3);
 
 	if (itemChance(generator) == 1)
-		return nullptr;
+	{
+		item_ = nullptr;
+		return;
+	}
 
 	const std::uniform_int_distribution<int> distribution(1, 3);
 
 	// Choose between 3 item types
 	switch (distribution(generator))
 	{
-	case 1: return new Armor;
-	case 2: return new Sword;
+	case 1: item_ = new Armor; break;
+	case 2: item_ = new Sword; break;
 	case 3: // Choose between 3 consumables
 		switch (distribution(generator)) {
-		case 1: return new HealthPotion;
-		case 2: return new ExperiencePotion;
-		case 3: return new HolyGrenade;
+		case 1: item_ = new HealthPotion; break;
+		case 2: item_ = new ExperiencePotion; break;
+		case 3: item_ = new HolyGrenade; break;
 		}
 	}
-
-	return nullptr;
 }

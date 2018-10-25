@@ -2,14 +2,14 @@
 class Entity
 {
 public:
-	Entity(int level);
+	Entity(char* name, int level, int healthPoints, int experiencePoints, int attack, int defence);
 	~Entity();
 
 protected:
-	char name_[30];
+	char* name_;
 	int level_;
-	int healthpoints_;
-	int experiencepoints_;
+	int healthPoints_;
+	int experiencePoints_;
 	int attack_;
 	int defence_;
 };

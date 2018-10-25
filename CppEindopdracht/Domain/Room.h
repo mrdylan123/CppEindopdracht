@@ -8,19 +8,37 @@ class Room
 {
 public:
 	Room();
-	Room(std::default_random_engine& generator, int floorLevel);
+	Room(std::default_random_engine& generator, int floorLevel, bool containsStairCaseUp, bool containsStairCaseDown);
 	~Room();
 
 	char* description();
+	bool containsStairCaseUp() const;
+	bool containsStairCaseDown() const;
+
+	Room* northRoom() const;
+	Room* eastRoom() const;
+	Room* southRoom() const;
+	Room* westRoom() const;
 
 	void setNorthRoom(Room* room);
 	void setEastRoom(Room* room);
 	void setSouthRoom(Room* room);
 	void setWestRoom(Room* room);
 
+	void setEnd();
+	void setStart();
+
+	void setVisited();
+
+	void print() const;
 private:
 	char description_[100];
 	bool isVisited_;
+
+	bool containsStairCaseUp_;
+	bool containsStairCaseDown_;
+	bool isStart_;
+	bool isEnd_;
 
 	Room* northRoom_;
 	Room* eastRoom_;
@@ -31,6 +49,7 @@ private:
 
 	Item* item_;
 
-	Item* getRandomItem(std::default_random_engine& generator);
+	void setRandomDescription(std::default_random_engine& generator);
+	void setRandomItem(std::default_random_engine& generator);
 };
 

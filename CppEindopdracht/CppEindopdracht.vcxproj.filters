@@ -35,7 +35,9 @@
     <ClCompile Include="Domain\Item\Sword.cpp">
       <Filter>Domain\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Domain\Item\ExperiencePotion.cpp" />
+    <ClCompile Include="Domain\Item\ExperiencePotion.cpp">
+      <Filter>Domain\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Domain">
@@ -79,6 +81,8 @@
     <ClInclude Include="Domain\Item\Sword.h">
       <Filter>Domain\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Domain\Item\ExperiencePotion.h" />
+    <ClInclude Include="Domain\Item\ExperiencePotion.h">
+      <Filter>Domain\Item</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,12 +1,12 @@
 #include "Entity.h"
 
 
-
-Entity::Entity(const int level) : level_{level}, attack_{0}, defence_{0}, experiencepoints_{0}, healthpoints_{0}, name_{"monster"}
+Entity::Entity(char* name, const int level, const int healthPoints, const int experiencePoints, const int attack, const int defence) :
+	name_{ name }, level_{ level }, healthPoints_{ healthPoints }, experiencePoints_{ experiencePoints }, attack_{ attack }, defence_{ defence }
 {
 }
 
-
 Entity::~Entity()
 {
+	delete[] name_;
 }
