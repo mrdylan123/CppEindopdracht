@@ -163,8 +163,11 @@
     <ClCompile Include="Domain\Item\HealthPotion.cpp" />
     <ClCompile Include="Domain\Item\HolyGrenade.cpp" />
     <ClCompile Include="Domain\Item\ExperiencePotion.cpp" />
+    <ClCompile Include="EnemyFactory.cpp" />
+    <ClCompile Include="RandomGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Domain\Enemy.h" />
     <ClInclude Include="Domain\Item\Armor.h" />
     <ClInclude Include="Domain\Hero.h" />
     <ClInclude Include="Domain\Item\Item.h" />
@@ -172,11 +175,17 @@
     <ClInclude Include="Domain\Room.h" />
     <ClInclude Include="Domain\Dungeon.h" />
     <ClInclude Include="Domain\Entity.h" />
-    <ClInclude Include="Domain\Enemy.h" />
     <ClInclude Include="Domain\Item\Sword.h" />
     <ClInclude Include="Domain\Item\HealthPotion.h" />
     <ClInclude Include="Domain\Item\HolyGrenade.h" />
     <ClInclude Include="Domain\Item\ExperiencePotion.h" />
+    <ClInclude Include="EnemyFactory.h" />
+    <ClInclude Include="RandomGenerator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Monsters.txt">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

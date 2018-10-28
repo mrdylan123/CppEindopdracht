@@ -38,6 +38,8 @@
     <ClCompile Include="Domain\Item\ExperiencePotion.cpp">
       <Filter>Domain\Item</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyFactory.cpp" />
+    <ClCompile Include="RandomGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Domain">
@@ -58,9 +60,6 @@
       <Filter>Domain</Filter>
     </ClInclude>
     <ClInclude Include="Domain\Dungeon.h">
-      <Filter>Domain</Filter>
-    </ClInclude>
-    <ClInclude Include="Domain\Enemy.h">
       <Filter>Domain</Filter>
     </ClInclude>
     <ClInclude Include="Domain\Entity.h">
@@ -84,5 +83,11 @@
     <ClInclude Include="Domain\Item\ExperiencePotion.h">
       <Filter>Domain\Item</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyFactory.h" />
+    <ClInclude Include="Domain\Enemy.h" />
+    <ClInclude Include="RandomGenerator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Monsters.txt" />
   </ItemGroup>
 </Project>

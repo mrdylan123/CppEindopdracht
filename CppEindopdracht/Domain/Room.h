@@ -8,7 +8,7 @@ class Room
 {
 public:
 	Room();
-	Room(std::default_random_engine& generator, int floorLevel, bool containsStairCaseUp, bool containsStairCaseDown);
+	Room(int floorLevel, bool containsStairCaseUp, bool containsStairCaseDown);
 	~Room();
 
 	char* description();
@@ -49,7 +49,7 @@ private:
 
 	Item* item_;
 
-	void setRandomDescription(std::default_random_engine& generator);
-	void setRandomItem(std::default_random_engine& generator);
+	void setRandomDescription();
+	void setRandomItem();
 };
 

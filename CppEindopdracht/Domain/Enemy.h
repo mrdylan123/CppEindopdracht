@@ -1,9 +1,16 @@
 #pragma once
 #include "Entity.h"
 
+class EnemyFactory;
+
 class Enemy : public Entity
 {
 public:
-	Enemy(std::default_random_engine& generator, int floorLevel);
+	Enemy();
 	~Enemy();
+
+	friend EnemyFactory;
+
+private:
+	int numberOfAttacks_;
 };

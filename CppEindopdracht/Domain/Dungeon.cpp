@@ -70,5 +70,6 @@ void Dungeon::move(const Direction direction)
 		throw std::exception{ "Kan niet die richting op gaan." };
 
 	currentRoom_ = nextRoom;
+	currentRoom_->setVisited();
 	describeCurrentRoom();
 }

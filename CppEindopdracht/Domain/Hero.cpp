@@ -2,7 +2,7 @@
 #include "Item/Item.h"
 
 
-Hero::Hero() : Entity(new char[5]{ "Hero" }, 1, 5, 0, 1, 1)
+Hero::Hero() : Entity(new char[5]{ "Hero" }, 1, 5, 0, 1, 1, 3, 1)
 {
 	items_ = new Item[50];
 }

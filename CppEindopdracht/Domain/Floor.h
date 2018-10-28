@@ -6,7 +6,7 @@ class Floor
 {
 public:
 	Floor();
-	Floor(std::default_random_engine& generator, int width, int height, int floorLevel, int dungeonDepth);
+	Floor(int width, int height, int floorLevel, int dungeonDepth);
 	~Floor();
 
 	void print() const;
@@ -18,9 +18,9 @@ private:
 	Room*** rooms_;
 	Room* startRoom_;
 
-	void setRandomEnd(std::default_random_engine& generator) const;
-	void setRandomStart(std::default_random_engine& generator);
-	void generateRooms(std::default_random_engine& generator, int dungeonDepth);
-	void linkAdjacentRooms(std::default_random_engine& generator) const;
+	void setRandomEnd() const;
+	void setRandomStart();
+	void generateRooms(int dungeonDepth);
+	void linkAdjacentRooms() const;
 };
 

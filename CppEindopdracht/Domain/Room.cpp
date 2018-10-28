@@ -8,31 +8,22 @@
 #include "Item/ExperiencePotion.h"
 #include "Item/HolyGrenade.h"
 #include <iostream>
+#include "../RandomGenerator.h"
 
 
 Room::Room()
 {
 }
 
-Room::Room(std::default_random_engine& generator, const int floorLevel, const bool containsStairCaseUp, const bool containsStairCaseDown) :
+Room::Room(const int floorLevel, const bool containsStairCaseUp, const bool containsStairCaseDown) :
 	isVisited_{ false },
 	containsStairCaseUp_{ containsStairCaseUp },
 	containsStairCaseDown_{ containsStairCaseDown }
 {
-	setRandomDescription(generator);
-	setRandomItem(generator);
+	setRandomDescription();
+	setRandomItem();
 
-	const std::uniform_int_distribution<int> distribution(1, 3);
-
-	// Generate a possible enemy, 1/3 chance
-	if (distribution(generator) == 1)
-	{
-		enemy_ = new Enemy{ generator, floorLevel };
-	}
-	else
-	{
-		enemy_ = nullptr;
-	}
+	// TODO: Generate a possible enemy, 1/3 chance
 }
 
 
@@ -104,6 +95,7 @@ void Room::setEnd()
 
 void Room::setStart()
 {
+	setVisited();
 	isStart_ = true;
 }
 
@@ -147,9 +139,9 @@ void Room::print() const
 	std::cout << "N";
 }
 
-void Room::setRandomDescription(std::default_random_engine& generator)
+void Room::setRandomDescription()
 {
-	const std::uniform_int_distribution<int> distribution(1, 3);
+	RandomGenerator* generator = RandomGenerator::instance();
 
 	// Generate description
 	char size[15];
@@ -160,9 +152,9 @@ void Room::setRandomDescription(std::default_random_engine& generator)
 	char cleanlinesses[2][15] = { "opgeruimde", "smerige" };
 	char objects[3][35] = { "met een tafel en vier stoelen", "met in de hoek een bed", "die leeg is" };
 
-	strncpy_s(size, sizes[distribution(generator) - 1], 15);
-	strncpy_s(cleanliness, cleanlinesses[distribution(generator) % 2], 15);
-	strncpy_s(object, objects[distribution(generator) - 1], 35);
+	strncpy_s(size, sizes[generator->randomNumber(0, 2)], 15);
+	strncpy_s(cleanliness, cleanlinesses[generator->randomNumber(0, 1)], 15);
+	strncpy_s(object, objects[generator->randomNumber(0, 2)], 35);
 
 	char description[100] = { "" };
 
@@ -177,26 +169,24 @@ void Room::setRandomDescription(std::default_random_engine& generator)
 	strncpy_s(description_, description, 100);
 }
 
-void Room::setRandomItem(std::default_random_engine& generator)
+void Room::setRandomItem()
 {
 	// Generate a possible item, 1/3 chance
-	const std::uniform_int_distribution<int> itemChance(1, 3);
+	RandomGenerator* generator = RandomGenerator::instance();
 
-	if (itemChance(generator) == 1)
+	if (generator->randomNumber(1, 3) == 1)
 	{
 		item_ = nullptr;
 		return;
 	}
 
-	const std::uniform_int_distribution<int> distribution(1, 3);
-
 	// Choose between 3 item types
-	switch (distribution(generator))
+	switch (generator->randomNumber(1, 3))
 	{
 	case 1: item_ = new Armor; break;
 	case 2: item_ = new Sword; break;
 	case 3: // Choose between 3 consumables
-		switch (distribution(generator)) {
+		switch (generator->randomNumber(1, 3)) {
 		case 1: item_ = new HealthPotion; break;
 		case 2: item_ = new ExperiencePotion; break;
 		case 3: item_ = new HolyGrenade; break;

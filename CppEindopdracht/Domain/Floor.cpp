@@ -1,25 +1,26 @@
 #include "Floor.h"
 #include "Room.h"
 #include <iostream>
+#include "../RandomGenerator.h"
 
 Floor::Floor()
 {
 }
 
-Floor::Floor(std::default_random_engine& generator, const int width, const int height, const int floorLevel, const int dungeonDepth) :
+Floor::Floor(const int width, const int height, const int floorLevel, const int dungeonDepth) :
 	width_{ width },
 	height_{ height },
 	floorLevel_{ floorLevel }
 {
-	generateRooms(generator, dungeonDepth);
+	generateRooms(dungeonDepth);
 
 	if (floorLevel_ == dungeonDepth - 1)
-		setRandomEnd(generator);
+		setRandomEnd();
 
 	if (floorLevel_ == 0)
-		setRandomStart(generator);
+		setRandomStart();
 	
-	linkAdjacentRooms(generator);
+	linkAdjacentRooms();
 	// TODO: Set a random room from a floor with an enemy to a BOSS enemy, Start location, Stairs down and Stairs up.
 }
 
@@ -39,39 +40,37 @@ Floor::~Floor()
 	delete[] rooms_;
 }
 
-void Floor::setRandomEnd(std::default_random_engine& generator) const
+void Floor::setRandomEnd() const
 {
-	const std::uniform_int_distribution<int> xDistribution(0, width_ - 1);
-	const std::uniform_int_distribution<int> yDistribution(0, height_ - 1);
+	RandomGenerator* generator = RandomGenerator::instance();
 
-	int endX = xDistribution(generator);
-	int endY = yDistribution(generator);
+	int endX = generator->randomNumber(0 , width_ - 1);
+	int endY = generator->randomNumber(0, height_ - 1);
 
 	while (rooms_[endX][endY]->containsStairCaseDown() && rooms_[endX][endY]->containsStairCaseUp())
 	{
-		endX = xDistribution(generator);
-		endY = yDistribution(generator);
+		endX = generator->randomNumber(0, width_ - 1);
+		endY = generator->randomNumber(0, height_ - 1);
 	}
 
 	rooms_[endX][endY]->setEnd();
 }
 
-void Floor::setRandomStart(std::default_random_engine& generator)
+void Floor::setRandomStart()
 {
-	const std::uniform_int_distribution<int> xDistribution(0, width_ - 1);
-	const std::uniform_int_distribution<int> yDistribution(0, height_ - 1);
+	RandomGenerator* generator = RandomGenerator::instance();
 
-	int startX = xDistribution(generator);
-	int endY = yDistribution(generator);
+	int startX = generator->randomNumber(0, width_ - 1);
+	int startY = generator->randomNumber(0, height_ - 1);
 
-	while (rooms_[startX][endY]->containsStairCaseDown() && rooms_[startX][endY]->containsStairCaseUp())
+	while (rooms_[startX][startY]->containsStairCaseDown() && rooms_[startX][startY]->containsStairCaseUp())
 	{
-		startX = xDistribution(generator);
-		endY = yDistribution(generator);
+		startX = generator->randomNumber(0, width_ - 1);
+		startY = generator->randomNumber(0, height_ - 1);
 	}
 
-	rooms_[startX][endY]->setStart();
-	startRoom_ = rooms_[startX][endY];
+	rooms_[startX][startY]->setStart();
+	startRoom_ = rooms_[startX][startY];
 }
 
 void Floor::print() const
@@ -92,30 +91,29 @@ Room* Floor::startRoom() const
 	return startRoom_;
 }
 
-void Floor::generateRooms(std::default_random_engine& generator, const int dungeonDepth)
+void Floor::generateRooms(const int dungeonDepth)
 {
 	// Determine the location of the staircase upwards and downwards
-	const std::uniform_int_distribution<int> xDistribution(0, width_ - 1);
-	const std::uniform_int_distribution<int> yDistribution(0, height_ - 1);
+	RandomGenerator* generator = RandomGenerator::instance();
 
 	int stairCaseUpX = -1, stairCaseUpY = -1, stairCaseDownX = -1, stairCaseDownY = -1;
 
 	if (floorLevel_ != 0)
 	{
-		stairCaseUpX = xDistribution(generator);
-		stairCaseUpY = yDistribution(generator);
+		stairCaseUpX = generator->randomNumber(0, width_ - 1);
+		stairCaseUpY = generator->randomNumber(0, height_ - 1);
 	}
 	
 	if (floorLevel_ != dungeonDepth - 1)
 	{
-		stairCaseDownX = xDistribution(generator);
-		stairCaseDownY = yDistribution(generator);
+		stairCaseDownX = generator->randomNumber(0, width_ - 1);
+		stairCaseDownY = generator->randomNumber(0, height_ - 1);
 	}
 
 	while (stairCaseUpX != -1 && stairCaseDownX != -1 && stairCaseUpX == stairCaseDownX && stairCaseUpY == stairCaseDownY)
 	{
-		stairCaseDownX = xDistribution(generator);
-		stairCaseDownY = yDistribution(generator);
+		stairCaseDownX = generator->randomNumber(0, width_ - 1);
+		stairCaseDownY = generator->randomNumber(0, height_ - 1);
 	}
 
 	// Create a grid of rooms
@@ -130,7 +128,6 @@ void Floor::generateRooms(std::default_random_engine& generator, const int dunge
 		for (int x = 0; x < width_; x++)
 		{
 			rooms_[x][y] = new Room{
-				generator,
 				y,
 				x == stairCaseUpX && y == stairCaseUpY,
 				x == stairCaseDownX && y == stairCaseDownY
@@ -139,7 +136,7 @@ void Floor::generateRooms(std::default_random_engine& generator, const int dunge
 	}
 }
 
-void Floor::linkAdjacentRooms(std::default_random_engine& generator) const
+void Floor::linkAdjacentRooms() const
 {
 	// Link rooms with adjacent rooms
 	for (int y = 0; y < height_; y++)
