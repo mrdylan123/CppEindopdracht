@@ -10,6 +10,10 @@ public:
 	Room();
 	Room(int floorLevel, bool containsStairCaseUp, bool containsStairCaseDown);
 	~Room();
+	Room(const Room& other) = delete;
+	Room(Room&& other) noexcept = delete;
+	Room& operator=(const Room& other) = delete;
+	Room& operator=(Room&& other) noexcept = delete;
 
 	char* description();
 	bool containsStairCaseUp() const;

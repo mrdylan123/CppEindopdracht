@@ -12,7 +12,7 @@ Dungeon::Dungeon(const int width, const int height, const int depth) : depth_{ d
 
 	for (int i = 0; i < depth; i++)
 	{
-		floors_[i] = new Floor{ generator, width, height, i, depth_ };
+		floors_[i] = new Floor{ width, height, i, depth_ };
 	}
 
 	currentRoom_ = floors_[0]->startRoom();
@@ -66,6 +66,7 @@ void Dungeon::move(const Direction direction)
 	case West: nextRoom = currentRoom_->westRoom(); break;
 	}
 
+	// There is no room in that direction
 	if (nextRoom == nullptr)
 		throw std::exception{ "Kan niet die richting op gaan." };
 

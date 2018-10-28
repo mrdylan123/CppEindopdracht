@@ -5,9 +5,12 @@
 class Floor
 {
 public:
-	Floor();
 	Floor(int width, int height, int floorLevel, int dungeonDepth);
 	~Floor();
+	Floor(const Floor& other) = delete;
+	Floor(Floor&& other) noexcept = delete;
+	Floor& operator=(const Floor& other) = delete;
+	Floor& operator=(Floor&& other) noexcept = delete;
 
 	void print() const;
 	Room* startRoom() const;

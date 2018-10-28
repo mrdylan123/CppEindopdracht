@@ -84,8 +84,10 @@
       <Filter>Domain\Item</Filter>
     </ClInclude>
     <ClInclude Include="EnemyFactory.h" />
-    <ClInclude Include="Domain\Enemy.h" />
     <ClInclude Include="RandomGenerator.h" />
+    <ClInclude Include="Domain\Enemy.h">
+      <Filter>Domain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Monsters.txt" />

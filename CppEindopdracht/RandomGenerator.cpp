@@ -22,8 +22,8 @@ RandomGenerator* RandomGenerator::instance()
 	return s_instance;
 }
 
-int RandomGenerator::randomNumber(const int min, const int max)
+int RandomGenerator::randomNumber(const int min, const int max) const
 {
 	const std::uniform_int_distribution<int> distribution(min, max);
-	return distribution(generator_);
+	return distribution(*generator_);
 }

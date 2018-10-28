@@ -3,10 +3,6 @@
 #include <iostream>
 #include "../RandomGenerator.h"
 
-Floor::Floor()
-{
-}
-
 Floor::Floor(const int width, const int height, const int floorLevel, const int dungeonDepth) :
 	width_{ width },
 	height_{ height },
@@ -26,14 +22,14 @@ Floor::Floor(const int width, const int height, const int floorLevel, const int 
 
 Floor::~Floor()
 {
-	for (int y = 0; y < height_; y++) {
+	for (int x = 0; x < width_; x++) {
 		// Delete the individual rooms in a row
-		for (int x = 0; x < width_; x++) {
-			delete rooms_[y][x];
+		for (int y = 0; y < height_; y++) {
+			delete rooms_[x][y];
 		}
 
 		// Delete the row array
-		delete[] rooms_[y];
+		delete[] rooms_[x];
 	}
 
 	// Delete the columns array
