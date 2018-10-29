@@ -14,12 +14,17 @@ public:
 
 	void print() const;
 	Room* startRoom() const;
+	Room* stairCaseUpRoom() const;
+	Room* stairCaseDownRoom() const;
+
 private:
 	int width_;
 	int height_;
 	int floorLevel_;
 	Room*** rooms_;
 	Room* startRoom_;
+	Room* stairCaseUpRoom_;
+	Room* stairCaseDownRoom_;
 
 	void setRandomEnd() const;
 	void setRandomStart();

@@ -3,9 +3,12 @@
 class Armor : public Item
 {
 public:
-	Armor();
+	Armor(int floorLevel);
 	~Armor();
 
+	int defence() const;
+
+	void use(Hero& hero) override;
 private:
 	int defence_;
 };

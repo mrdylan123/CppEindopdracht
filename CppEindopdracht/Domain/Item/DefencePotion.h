@@ -1,10 +1,10 @@
 #pragma once
 #include "Item.h"
-class HealthPotion : public Item
+class DefencePotion : public Item
 {
 public:
-	HealthPotion();
-	~HealthPotion();
+	DefencePotion();
+	~DefencePotion();
 
 	void use(Hero& h) override;
 };

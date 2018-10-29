@@ -7,7 +7,6 @@ class Enemy;
 class Room
 {
 public:
-	Room();
 	Room(int floorLevel, bool containsStairCaseUp, bool containsStairCaseDown);
 	~Room();
 	Room(const Room& other) = delete;
@@ -23,6 +22,14 @@ public:
 	Room* eastRoom() const;
 	Room* southRoom() const;
 	Room* westRoom() const;
+	Enemy* enemy() const;
+	bool isEnd() const;
+
+	char* enemyName() const;
+	int floorLevel() const;
+	Item* item() const;
+
+	Item* pickUpItem();
 
 	void setNorthRoom(Room* room);
 	void setEastRoom(Room* room);
@@ -34,11 +41,16 @@ public:
 
 	void setVisited();
 
+	void describe() const;
+	void enter(int dungeonDepth);
+	void clear();
+
 	void print() const;
 private:
 	char description_[100];
 	bool isVisited_;
 
+	int floorLevel_;
 	bool containsStairCaseUp_;
 	bool containsStairCaseDown_;
 	bool isStart_;

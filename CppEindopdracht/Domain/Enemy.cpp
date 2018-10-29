@@ -2,7 +2,7 @@
 #include "Enemy.h"
 
 
-Enemy::Enemy() : Entity(new char[30], 0, 0, 0, 0, 0, 0, 0), numberOfAttacks_{ 0 }
+Enemy::Enemy() : Entity(new char[30], 0, 0, 0, 0, 0, 0), numberOfAttacks_{ 0 }
 {
 }
 
@@ -11,16 +11,14 @@ Enemy::~Enemy()
 {
 }
 
-Enemy::Enemy(const Enemy& other) : Entity(new char[30], other.level_, other.healthPoints_,
-	other.experiencePoints_, other.attack_, other.minDamage_, other.maxDamage_,
-	other.defence_), numberOfAttacks_(0)
+Enemy::Enemy(const Enemy& other) : Entity(new char[30], other.level_, other.healthPoints_, other.attackChance_, other.minDamage_, other.maxDamage_,
+	other.defenceChance_), numberOfAttacks_(0)
 {
 	std::memcpy(name_, other.name_, 30);
 }
 
-Enemy::Enemy(Enemy&& other) noexcept : Entity(other.name_, other.level_, other.healthPoints_,
-	other.experiencePoints_, other.attack_, other.minDamage_,
-	other.maxDamage_, other.defence_), numberOfAttacks_(0)
+Enemy::Enemy(Enemy&& other) noexcept : Entity(other.name_, other.level_, other.healthPoints_, other.attackChance_, other.minDamage_,
+	other.maxDamage_, other.defenceChance_), numberOfAttacks_(0)
 {
 	other.name_ = nullptr;
 }
@@ -37,11 +35,10 @@ Enemy& Enemy::operator=(const Enemy& other)
 
 	level_ = other.level_;
 	healthPoints_ = other.healthPoints_;
-	experiencePoints_ = other.experiencePoints_;
-	attack_ = other.attack_;
+	attackChance_ = other.attackChance_;
 	minDamage_ = other.minDamage_;
 	maxDamage_ = other.maxDamage_;
-	defence_ = other.defence_;
+	defenceChance_ = other.defenceChance_;
 
 	return *this;
 }
@@ -56,11 +53,10 @@ Enemy& Enemy::operator=(Enemy&& other) noexcept
 
 	level_ = other.level_;
 	healthPoints_ = other.healthPoints_;
-	experiencePoints_ = other.experiencePoints_;
-	attack_ = other.attack_;
+	attackChance_ = other.attackChance_;
 	minDamage_ = other.minDamage_;
 	maxDamage_ = other.maxDamage_;
-	defence_ = other.defence_;
+	defenceChance_ = other.defenceChance_;
 
 	return *this;
 }

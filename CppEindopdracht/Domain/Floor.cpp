@@ -15,9 +15,8 @@ Floor::Floor(const int width, const int height, const int floorLevel, const int 
 
 	if (floorLevel_ == 0)
 		setRandomStart();
-	
+
 	linkAdjacentRooms();
-	// TODO: Set a random room from a floor with an enemy to a BOSS enemy, Start location, Stairs down and Stairs up.
 }
 
 Floor::~Floor()
@@ -40,9 +39,10 @@ void Floor::setRandomEnd() const
 {
 	RandomGenerator* generator = RandomGenerator::instance();
 
-	int endX = generator->randomNumber(0 , width_ - 1);
+	int endX = generator->randomNumber(0, width_ - 1);
 	int endY = generator->randomNumber(0, height_ - 1);
 
+	// Endroom cannot also be a staircase room
 	while (rooms_[endX][endY]->containsStairCaseDown() && rooms_[endX][endY]->containsStairCaseUp())
 	{
 		endX = generator->randomNumber(0, width_ - 1);
@@ -59,6 +59,7 @@ void Floor::setRandomStart()
 	int startX = generator->randomNumber(0, width_ - 1);
 	int startY = generator->randomNumber(0, height_ - 1);
 
+	// Startroom cannot also be a staircase room
 	while (rooms_[startX][startY]->containsStairCaseDown() && rooms_[startX][startY]->containsStairCaseUp())
 	{
 		startX = generator->randomNumber(0, width_ - 1);
@@ -87,6 +88,16 @@ Room* Floor::startRoom() const
 	return startRoom_;
 }
 
+Room* Floor::stairCaseUpRoom() const
+{
+	return stairCaseUpRoom_;
+}
+
+Room* Floor::stairCaseDownRoom() const
+{
+	return stairCaseDownRoom_;
+}
+
 void Floor::generateRooms(const int dungeonDepth)
 {
 	// Determine the location of the staircase upwards and downwards
@@ -94,12 +105,14 @@ void Floor::generateRooms(const int dungeonDepth)
 
 	int stairCaseUpX = -1, stairCaseUpY = -1, stairCaseDownX = -1, stairCaseDownY = -1;
 
+	// First floor does not have a staircase up
 	if (floorLevel_ != 0)
 	{
 		stairCaseUpX = generator->randomNumber(0, width_ - 1);
 		stairCaseUpY = generator->randomNumber(0, height_ - 1);
 	}
-	
+
+	// Last floor does not have a staircase down
 	if (floorLevel_ != dungeonDepth - 1)
 	{
 		stairCaseDownX = generator->randomNumber(0, width_ - 1);
@@ -124,10 +137,16 @@ void Floor::generateRooms(const int dungeonDepth)
 		for (int x = 0; x < width_; x++)
 		{
 			rooms_[x][y] = new Room{
-				y,
+				floorLevel_,
 				x == stairCaseUpX && y == stairCaseUpY,
-				x == stairCaseDownX && y == stairCaseDownY
+				x == stairCaseDownX && y == stairCaseDownY,
 			};
+
+			if (rooms_[x][y]->containsStairCaseDown())
+				stairCaseDownRoom_ = rooms_[x][y];
+
+			if (rooms_[x][y]->containsStairCaseUp())
+				stairCaseUpRoom_ = rooms_[x][y];
 		}
 	}
 }

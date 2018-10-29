@@ -3,10 +3,11 @@
 #include <iostream>
 #include <string>
 #include "Domain/Enemy.h"
+#include "RandomGenerator.h"
 
 EnemyFactory *EnemyFactory::s_instance = nullptr;
 
-EnemyFactory::EnemyFactory(): enemies_(new Enemy[14])
+EnemyFactory::EnemyFactory() : enemies_(new Enemy[14])
 {
 	std::ifstream inFile;
 	inFile.open("Monsters.txt");
@@ -26,9 +27,9 @@ EnemyFactory::EnemyFactory(): enemies_(new Enemy[14])
 		{
 			inFile.getline(line, 300);
 
-			sscanf_s(line, "[%[^;];%d;%dx%d;%d-%d;%d;%d]", enemies_[lineIndex].name_, sizeof enemies_[lineIndex].name_, &enemies_[lineIndex].level_,
-				&enemies_[lineIndex].attack_, &enemies_[lineIndex].numberOfAttacks_, &enemies_[lineIndex].minDamage_,
-				&enemies_[lineIndex].maxDamage_, &enemies_[lineIndex].defence_, &enemies_[lineIndex].healthPoints_);
+			sscanf_s(line, "[%[^;];%d;%dx%d;%d-%d;%d;%d]", enemies_[lineIndex].name_, 30, &enemies_[lineIndex].level_,
+				&enemies_[lineIndex].attackChance_, &enemies_[lineIndex].numberOfAttacks_, &enemies_[lineIndex].minDamage_,
+				&enemies_[lineIndex].maxDamage_, &enemies_[lineIndex].defenceChance_, &enemies_[lineIndex].healthPoints_);
 		}
 	}
 
@@ -50,9 +51,21 @@ EnemyFactory* EnemyFactory::instance()
 	return s_instance;
 }
 
-// Enemy* EnemyFactory::GetRandomEnemy(int floorLevel)
-// {
-//
-// }
+Enemy* EnemyFactory::getRandomEnemy(const int floorLevel, const int dungeonDepth) const
+{
+	RandomGenerator* generator = RandomGenerator::instance();
+
+	const int minEnemyIndex = (sizeof enemies_ - 2) / dungeonDepth * floorLevel;
+	const int maxEnemyIndex = (sizeof enemies_ - 2) / dungeonDepth * floorLevel + (sizeof enemies_ - 2) / dungeonDepth;
+
+	return new Enemy{ enemies_[generator->randomNumber(minEnemyIndex, maxEnemyIndex)] };
+}
+
+Enemy* EnemyFactory::getRandomBoss() const
+{
+	RandomGenerator* generator = RandomGenerator::instance();
+
+	return new Enemy{ enemies_[generator->randomNumber(12, 13)] };
+}
 
 

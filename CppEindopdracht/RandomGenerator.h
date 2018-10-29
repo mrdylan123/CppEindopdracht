@@ -6,7 +6,6 @@ class RandomGenerator
 public:
 	static RandomGenerator *s_instance;
 
-	RandomGenerator();
 	~RandomGenerator();
 	RandomGenerator(const RandomGenerator& other) = delete;
 	RandomGenerator(RandomGenerator&& other) noexcept = delete;
@@ -23,6 +22,7 @@ public:
 	 */
 	int randomNumber(int min, int max) const;
 private:
+	RandomGenerator();
 	std::default_random_engine* generator_;
 };
 

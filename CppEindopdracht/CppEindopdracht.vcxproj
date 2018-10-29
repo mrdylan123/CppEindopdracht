@@ -161,9 +161,11 @@
     <ClCompile Include="Domain\Enemy.cpp" />
     <ClCompile Include="Domain\Item\Sword.cpp" />
     <ClCompile Include="Domain\Item\HealthPotion.cpp" />
-    <ClCompile Include="Domain\Item\HolyGrenade.cpp" />
+    <ClCompile Include="Domain\Item\DefencePotion.cpp" />
     <ClCompile Include="Domain\Item\ExperiencePotion.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HeroLoader.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,12 +179,15 @@
     <ClInclude Include="Domain\Entity.h" />
     <ClInclude Include="Domain\Item\Sword.h" />
     <ClInclude Include="Domain\Item\HealthPotion.h" />
-    <ClInclude Include="Domain\Item\HolyGrenade.h" />
+    <ClInclude Include="Domain\Item\DefencePotion.h" />
     <ClInclude Include="Domain\Item\ExperiencePotion.h" />
     <ClInclude Include="EnemyFactory.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="HeroLoader.h" />
     <ClInclude Include="RandomGenerator.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Heroes.txt" />
     <Text Include="Monsters.txt">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
     </Text>

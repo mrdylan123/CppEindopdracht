@@ -4,13 +4,16 @@
 class Item
 {
 public:
-	Item();
-	~Item();
+	Item(char* name);
+	virtual ~Item();
 
-	void use(Hero& h);
+	char* name() const;
+	bool isConsumable() const;
+
+	virtual void use(Hero& h) = 0;
 
 protected:
-	char name_[30];
-	bool isConsumable;
+	char* name_;
+	bool isConsumable_;
 };
 

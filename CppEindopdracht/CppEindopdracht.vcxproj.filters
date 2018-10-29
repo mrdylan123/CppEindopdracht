@@ -29,9 +29,6 @@
     <ClCompile Include="Domain\Item\HealthPotion.cpp">
       <Filter>Domain\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Domain\Item\HolyGrenade.cpp">
-      <Filter>Domain\Item</Filter>
-    </ClCompile>
     <ClCompile Include="Domain\Item\Sword.cpp">
       <Filter>Domain\Item</Filter>
     </ClCompile>
@@ -40,6 +37,11 @@
     </ClCompile>
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
+    <ClCompile Include="Domain\Item\DefencePotion.cpp">
+      <Filter>Domain\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="HeroLoader.cpp" />
+    <ClCompile Include="Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Domain">
@@ -74,9 +76,6 @@
     <ClInclude Include="Domain\Item\HealthPotion.h">
       <Filter>Domain\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Domain\Item\HolyGrenade.h">
-      <Filter>Domain\Item</Filter>
-    </ClInclude>
     <ClInclude Include="Domain\Item\Sword.h">
       <Filter>Domain\Item</Filter>
     </ClInclude>
@@ -88,8 +87,14 @@
     <ClInclude Include="Domain\Enemy.h">
       <Filter>Domain</Filter>
     </ClInclude>
+    <ClInclude Include="Domain\Item\DefencePotion.h">
+      <Filter>Domain\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HeroLoader.h" />
+    <ClInclude Include="Game.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Monsters.txt" />
+    <Text Include="Heroes.txt" />
   </ItemGroup>
 </Project>
